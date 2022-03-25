@@ -1,0 +1,99 @@
+:root {
+  --primary:  #708090;
+  --white: #FBFAF5;
+}
+
+
+* {
+  margin: 0;
+  background-color: var(--primary);
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+h1 {
+  color: var(--white);
+  padding: 20px 0px 20px 0px;
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+  width: 500px;
+  height: 500px;
+  background-color: var(--white) ;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.cell {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  border: 1px solid black;
+  cursor: pointer;
+  
+}
+
+.cell-container {
+  border-radius: 5px;
+}
+
+.cell:hover {
+  background-color: lightblue;
+}
+
+.play-btn {
+  width: 120px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid black;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.toggle {
+  content: none;
+}
+
+.countdown {
+  font-size: 30px;
+  color: var(--white);
+  transition-duration: 1s;
+  animation-name: countdown;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+.footer {
+  margin-top: 60px;
+  background-color: var(--white);
+  height: 150px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.footer p {
+  background-color: var(--white);
+  font-size: 20px;
+}
+
+@keyframes countdown {
+  from {
+    transform:scale(1);
+  }
+  to {
+    transform:scale(1.8);
+  }
+}
