@@ -73,6 +73,10 @@ h1 {
   animation-timing-function: linear;
 }
 
+.selected {
+  background-color: red;
+}
+
 .footer {
   margin-top: 60px;
   background-color: var(--white);
