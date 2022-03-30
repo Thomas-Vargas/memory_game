@@ -1,10 +1,16 @@
 const Timer = ({ time, roundTime, selectionTime }) => {
     return (
-      <div className='countdown'>
-        {time}
-        {roundTime}
-        {selectionTime}
-      </div>
+        <div>
+            <div className='countdown'>
+                {time}
+            </div>
+            <div className='countdown'>
+                {roundTime}
+            </div>
+            <div className='countdown'>
+                {selectionTime}
+            </div>
+        </div>
     )
 }
 
