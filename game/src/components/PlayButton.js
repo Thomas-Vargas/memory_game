@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import Timer from '../components/Timer'
+import Display  from '../components/Display'
 
 const PlayButton = () => {
     const [showButton, setShowButton] = useState(true)
@@ -8,6 +8,7 @@ const PlayButton = () => {
     const [roundTime, setRoundTime] = useState(null)
     const [selectionTime, setSelectionTime] = useState(null)
     const [randomCells, setRandomCells] = useState([])
+    const [userSelection, setUserSelection] = useState([])
 
     const startGame = useCallback(
         () => {
@@ -23,10 +24,10 @@ const PlayButton = () => {
             }
 
             setShowButton(false)
+            setUserSelection([])
             setTimeLeft(3)
             randomSelection()
             console.log(`Round: ${roundCount}`)
-            setRoundCount(roundCount + 1)
         },
         [roundCount]
     )
@@ -75,7 +76,11 @@ const PlayButton = () => {
         if(roundTime === 0) {
             console.log('round time left is 0')
             setRoundTime(null)
-            setSelectionTime(3)
+            let cells = document.getElementsByClassName('cell')
+            for(let i = 0; i < cells.length; i++) {
+                cells[i].disabled = false
+            }
+            setSelectionTime(10)
         }
 
         if(!roundTime) {
@@ -95,13 +100,33 @@ const PlayButton = () => {
         if(selectionTime === 0) {
             console.log('selection time over')
             setSelectionTime(null)
+
             if(roundCount <= 5) {
+                setRoundCount(roundCount + 1)
                 startGame()
             } else {
                 //reset round count
                 setRoundCount(1)
                 setShowButton(true)
             }
+
+            let cells = document.getElementsByClassName('cell')
+            for(let i = 0; i < cells.length; i++) {
+                cells[i].disabled = true
+                cells[i].classList.remove('selected')
+            }
+        }
+
+        //user selection
+        let cells = document.getElementsByClassName('cell')
+        for (let i = 0; i < cells.length; i++) {
+            cells[i].addEventListener('click', (e) => {
+                let value = Number(e.target.value)
+                if(userSelection.includes(value) === false && userSelection.length < 5) {
+                    setUserSelection([...userSelection, value])
+                }
+                cells[i].classList.add('selected')
+            })
         }
 
         if(!selectionTime) {
@@ -110,18 +135,20 @@ const PlayButton = () => {
 
         const intervalId = setInterval(() => {
         setSelectionTime(selectionTime - 1)
-        console.log(selectionTime)
+        
+        console.log(`user selected: `, {userSelection})
         }, 1000)
         return () => clearInterval(intervalId)
-    }, [selectionTime, roundCount, startGame])
+    }, [selectionTime, roundCount, startGame, userSelection])
 
     return (
         <div>
-        {showButton ? (
-            <button id='play-btn' className='play-btn' onClick={startGame}>
-              Play
-            </button>
-          ) : <Timer time={timeLeft} roundTime={roundTime} selectionTime={selectionTime} />}
+            {showButton ? (
+                <button id='play-btn' className='play-btn' onClick={startGame}>
+                    Play
+                </button>
+                ) : <Display round={roundCount} time={timeLeft} roundTime={roundTime} selectionTime={selectionTime} />
+            }          
         </div>
     )
 }

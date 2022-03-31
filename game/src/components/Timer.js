@@ -1,6 +1,6 @@
 const Timer = ({ time, roundTime, selectionTime }) => {
     return (
-        <div>
+        <div className="timer">
             <div className='countdown'>
                 {time}
             </div>

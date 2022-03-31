@@ -63,11 +63,38 @@ h1 {
   content: none;
 }
 
+.timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 0px 20px 0px;
+}
+
+.display {
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+  width: 520px;
+  height: 80px;
+  background: var(--white);
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.round {
+  background-color: inherit;
+}
+
+h2 {
+  background-color: var(--white);
+}
+
 .countdown {
   font-size: 30px;
   color: var(--white);
   transition-duration: 1s;
-  animation-name: countdown;
+  /*animation-name: countdown;*/
   animation-duration: 1s;
   /*change for total timer count */
   animation-iteration-count: 55;

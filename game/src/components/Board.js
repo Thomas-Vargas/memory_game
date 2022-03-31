@@ -1,7 +1,12 @@
 const Cell = ({ number }) => {
     return (
         <div className='cell-container'>
-            <button id={`cell-${ number }`} className='cell'>
+            <button 
+                id={`cell-${ number }`} 
+                className='cell' 
+                value={number}
+                disabled
+            >
                 { number }
             </button>
         </div>
