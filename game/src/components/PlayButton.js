@@ -3,12 +3,14 @@ import Display  from '../components/Display'
 
 const PlayButton = () => {
     const [showButton, setShowButton] = useState(true)
-    const [roundCount, setRoundCount] = useState(1)
     const [timeLeft, setTimeLeft] = useState(null)
     const [roundTime, setRoundTime] = useState(null)
     const [selectionTime, setSelectionTime] = useState(null)
     const [randomCells, setRandomCells] = useState([])
     const [userSelection, setUserSelection] = useState([])
+    const [roundCount, setRoundCount] = useState(0)
+    const [score, setScore] = useState(0)
+    const [highScore, setHighScore] = useState(0)
 
     const startGame = useCallback(
         () => {
@@ -22,12 +24,12 @@ const PlayButton = () => {
                 }
                 setRandomCells(selections)
             }
-
             setShowButton(false)
+            setRoundCount(roundCount + 1)
             setUserSelection([])
             setTimeLeft(3)
             randomSelection()
-            console.log(`Round: ${roundCount}`)
+            /*console.log(`Round: ${roundCount}`)*/
         },
         [roundCount]
     )
@@ -58,8 +60,7 @@ const PlayButton = () => {
     
         const intervalId = setInterval(() => {
             setTimeLeft(timeLeft - 1)
-            console.log(timeLeft)
-            console.log(randomCells)
+            /*console.log(randomCells)*/
         }, 1000)
         return () => clearInterval(intervalId)
     }, [timeLeft, randomCells])
@@ -80,7 +81,7 @@ const PlayButton = () => {
             for(let i = 0; i < cells.length; i++) {
                 cells[i].disabled = false
             }
-            setSelectionTime(10)
+            setSelectionTime(5)
         }
 
         if(!roundTime) {
@@ -90,23 +91,30 @@ const PlayButton = () => {
 
         const intervalId = setInterval(() => {
             setRoundTime(roundTime - 1)
-            console.log(roundTime)
         }, 1000)
         return () => clearInterval(intervalId)
     }, [roundTime, randomCells])
 
     //selection timer
     useEffect(() => {
+        //calculate score
+        const calcScore = () => {
+            let matches = randomCells.filter(cell => userSelection.includes(cell))
+            setScore(score + (matches.length * 100))
+        }
+
         if(selectionTime === 0) {
             console.log('selection time over')
             setSelectionTime(null)
 
-            if(roundCount <= 5) {
-                setRoundCount(roundCount + 1)
+            if(roundCount < 5) {
+                calcScore()
                 startGame()
             } else {
-                //reset round count
-                setRoundCount(1)
+                //reset game
+                setHighScore(score)
+                setScore(0)
+                setRoundCount(0)
                 setShowButton(true)
             }
 
@@ -114,6 +122,7 @@ const PlayButton = () => {
             for(let i = 0; i < cells.length; i++) {
                 cells[i].disabled = true
                 cells[i].classList.remove('selected')
+                cells[i].classList.add('hover')
             }
         }
 
@@ -124,8 +133,14 @@ const PlayButton = () => {
                 let value = Number(e.target.value)
                 if(userSelection.includes(value) === false && userSelection.length < 5) {
                     setUserSelection([...userSelection, value])
+                    cells[i].classList.add('selected')
+                    cells[i].classList.remove('hover')
+                } else {
+                    let newArr = userSelection.filter(cell => cell !== value)
+                    setUserSelection(newArr)
+                    cells[i].classList.remove('selected')
+                    cells[i].classList.add('hover')
                 }
-                cells[i].classList.add('selected')
             })
         }
 
@@ -136,18 +151,25 @@ const PlayButton = () => {
         const intervalId = setInterval(() => {
         setSelectionTime(selectionTime - 1)
         
-        console.log(`user selected: `, {userSelection})
+        /*console.log(`user selected: `, {userSelection})*/
         }, 1000)
         return () => clearInterval(intervalId)
-    }, [selectionTime, roundCount, startGame, userSelection])
+    }, [selectionTime, roundCount, startGame, userSelection, randomCells, score])
 
     return (
         <div>
             {showButton ? (
                 <button id='play-btn' className='play-btn' onClick={startGame}>
                     Play
-                </button>
-                ) : <Display round={roundCount} time={timeLeft} roundTime={roundTime} selectionTime={selectionTime} />
+                </button>) : 
+                    <Display 
+                        round={roundCount}
+                        time={timeLeft}
+                        roundTime={roundTime}
+                        selectionTime={selectionTime} 
+                        score={score}
+                        highScore={highScore}
+                    />
             }          
         </div>
     )

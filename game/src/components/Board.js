@@ -3,7 +3,7 @@ const Cell = ({ number }) => {
         <div className='cell-container'>
             <button 
                 id={`cell-${ number }`} 
-                className='cell' 
+                className='cell hover' 
                 value={number}
                 disabled
             >
