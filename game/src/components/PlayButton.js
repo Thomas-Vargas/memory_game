@@ -38,6 +38,20 @@ const PlayButton = () => {
         return Math.floor(Math.random() * (max - min + 1) + min)
     }
 
+    /*const onClick = (e) => {
+        let value = Number(e.target.value)
+        if(userSelection.includes(value) === false && userSelection.length < 5) {
+            setUserSelection([...userSelection, value])
+            e.classList.add('selected')
+            e.classList.remove('hover')
+        } else {
+            let newArr = userSelection.filter(cell => cell !== value)
+            setUserSelection(newArr)
+            e.classList.remove('selected')
+            e.classList.add('hover')
+        }   
+    }*/
+
     //handle game start
     useEffect(() => {
         const changeCells = () => {
@@ -150,7 +164,6 @@ const PlayButton = () => {
 
         const intervalId = setInterval(() => {
         setSelectionTime(selectionTime - 1)
-        
         /*console.log(`user selected: `, {userSelection})*/
         }, 1000)
         return () => clearInterval(intervalId)

@@ -1,6 +1,6 @@
-const Cell = ({ number }) => {
+const Cell = ({ number, handleCellClick }) => {
     return (
-        <div className='cell-container'>
+        <div className='cell-container' onClick={handleCellClick}>
             <button 
                 id={`cell-${ number }`} 
                 className='cell hover' 
@@ -13,7 +13,7 @@ const Cell = ({ number }) => {
     )
 }
 
-const Board = () => {
+const Board = ({ test, handleCellClick }) => {
     let cells = []
 
     for(let i = 1; i < 26; i++) {
@@ -23,7 +23,7 @@ const Board = () => {
     return (
         <div className='game-board' id='board'>
             {cells.map((cell) => 
-                <Cell number={cell} key={cell} />
+                <Cell number={cell} key={cell} handleCellClick={handleCellClick} />
             )}
         </div>
     )
