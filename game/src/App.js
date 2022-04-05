@@ -1,12 +1,13 @@
 import './App.css'
 import React, { useState, useEffect, useCallback } from 'react'
 import Board from './components/Board'
-import Footer from './components/Footer'
 import Display  from './components/Display'
+import FinalScore from './components/FinalScore'
 
 function App() {
   const [showButton, setShowButton] = useState(true)
   const [gameOver, setGameOver] = useState(false)
+  const [showScore, setShowScore] = useState(false)
   const [timeLeft, setTimeLeft] = useState(null)
   const [roundTime, setRoundTime] = useState(null)
   const [selectionTime, setSelectionTime] = useState(null)
@@ -15,12 +16,13 @@ function App() {
   const [roundCount, setRoundCount] = useState(0)
   const [score, setScore] = useState(0)
   const [highScore, setHighScore] = useState(0)
+  const [scoreToShow, setScoreToShow] = useState(0)
 
   const startGame = useCallback(
       () => {
           const randomSelection = () => {
               let selections = []
-              while (selections.length < 5) {
+              while (selections.length < roundCount + 5) {
                   let number = randomNumber(1, 25)
                   if (selections.includes(number) === false){
                       selections.push(number)
@@ -29,6 +31,7 @@ function App() {
               setRandomCells(selections)
           }
           setShowButton(false)
+          setShowScore(false)
           setRoundCount(roundCount + 1)
           setUserSelection([])
           setTimeLeft(3)
@@ -46,7 +49,7 @@ function App() {
       let value = Number(e.target.value)
       console.log(value)
       let button = document.querySelector(`#cell-${value}`)
-      if(userSelection.includes(value) === false && userSelection.length < 5) {
+      if(userSelection.includes(value) === false && userSelection.length < roundCount + 4) {
           setUserSelection([...userSelection, value])
           button.classList.add('selected')
           button.classList.remove('hover')
@@ -147,6 +150,8 @@ function App() {
       if(gameOver === true) {
         //reset game
         setHighScore(score > highScore ? score : highScore)
+        setScoreToShow(score)
+        setShowScore(true)
         setScore(0)
         setRoundCount(0)
         setShowButton(true)
@@ -195,8 +200,8 @@ function App() {
         score={score}
         highScore={highScore}
       /> 
+       {showScore ? (<FinalScore score={scoreToShow} />) : ''}
       <Board handleCellClick={handleCellClick} />
-      <Footer />
     </div>
   )
 }
