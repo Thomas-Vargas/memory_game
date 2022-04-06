@@ -192,7 +192,7 @@ function App() {
   return (
     <div className='main'>
       <h1>Memory Game</h1>
-      <PlayButton 
+      <PlayButton
         round={roundCount}
         time={timeLeft}
         roundTime={roundTime}
