@@ -1,6 +1,9 @@
 const Round = ({ round }) => {
     return (
-        <h2>Round: {round}</h2>
+        <div className="display-cell">
+            <h2>Round</h2>
+            <h2>{round}</h2>
+        </div>
     )
 }
 

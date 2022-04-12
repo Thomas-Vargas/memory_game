@@ -1,8 +1,8 @@
-const Score = ({ score, highScore }) => {
+const Score = ({ score }) => {
     return (
-        <div className="scores">
-            <h2>Score: {score}</h2>
-            <h2>High Score: {highScore}</h2>
+        <div className="display-cell">
+            <h2>Score</h2>
+            <h2>{score}</h2>
         </div>
     )
 }

@@ -7,7 +7,6 @@ const Cell = ({ number, handleCellClick }) => {
                 value={number}
                 disabled
             >
-                { number }
             </button>
         </div>
     )
