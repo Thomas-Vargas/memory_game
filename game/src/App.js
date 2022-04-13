@@ -53,11 +53,13 @@ function App() {
           setUserSelection([...userSelection, value])
           button.classList.add('selected')
           button.classList.remove('hover')
+          button.parentElement.classList.add('breathing-animation')
       } else {
           let newArr = userSelection.filter(cell => cell !== value)
           setUserSelection(newArr)
           button.classList.remove('selected')
           button.classList.add('hover')
+          button.parentElement.classList.remove('breathing-animation')
       }
   }
 
@@ -67,6 +69,7 @@ function App() {
         for(let i = 0; i < randomCells.length; i++) {
           let selectedCell = document.getElementById(`cell-${randomCells[i]}`)
           selectedCell.classList.add('selected')
+          selectedCell.parentElement.classList.add('breathing-animation')
         }
       }
   
@@ -94,6 +97,7 @@ function App() {
           for(let i = 0; i < randomCells.length; i++) {
               let selectedCell = document.getElementById(`cell-${randomCells[i]}`)
               selectedCell.classList.remove('selected')
+              selectedCell.parentElement.classList.remove('breathing-animation')
           }
       }
 
@@ -144,6 +148,7 @@ function App() {
               cells[i].disabled = true
               cells[i].classList.remove('selected')
               cells[i].classList.add('hover')
+              cells[i].parentElement.classList.remove('breathing-animation')
           }
       }
 

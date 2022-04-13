@@ -79,6 +79,7 @@ h1 {
 .play-btn:hover {
   color: var(--dark-blue);
   background-color: var(--light-blue);
+  border: 1px solid var(--dark-blue);
 }
 
 .toggle {
@@ -170,12 +171,43 @@ h2 {
   font-size: 20px;
 }
 
+.breathing-animation {
+  animation: breathing 1s ease-out infinite normal;
+  -webkit-animation: breathing 1s ease-out infinite normal;
+}
+
 @keyframes countdown {
   from {
     transform:scale(1);
   }
   to {
     transform:scale(1.6);
+  }
+}
+
+@keyframes breathing {
+  0% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.96);
+  }
+
+  25% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+
+  60% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.96);
+  }
+
+  100% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.96);
   }
 }
 
