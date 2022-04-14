@@ -3,6 +3,7 @@
 :root {
   --correct: #629741;
   --white: #fefae0;
+  --hover: #caf3f5;
 
   --light-gray: #ced4da;
   --light-blue: #a8dadc;
@@ -61,7 +62,7 @@ h1 {
 }
 
 .hover:hover {
-  background-color: var(--correct);
+  background-color: var(--hover);
 }
 
 .play-btn {
@@ -77,6 +78,31 @@ h1 {
 }
 
 .play-btn:hover {
+  color: var(--dark-blue);
+  background-color: var(--light-blue);
+  border: 1px solid var(--dark-blue);
+}
+
+.difficulty-btns{
+  margin-top: 20px;
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.difficulty-btn {
+  width: 120px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--light-blue);
+  font-weight: 500;
+  background-color: var(--dark-blue);
+}
+
+.current-difficulty {
   color: var(--dark-blue);
   background-color: var(--light-blue);
   border: 1px solid var(--dark-blue);

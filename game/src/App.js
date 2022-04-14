@@ -8,6 +8,7 @@ function App() {
   const [showButton, setShowButton] = useState(true)
   const [gameOver, setGameOver] = useState(false)
   const [showScore, setShowScore] = useState(false)
+  const [difficulty, setDifficulty] = useState('medium')
   const [timeLeft, setTimeLeft] = useState(null)
   const [roundTime, setRoundTime] = useState(null)
   const [selectionTime, setSelectionTime] = useState(null)
@@ -194,9 +195,59 @@ function App() {
   )
 }
 
+const DifficultyButtons = () => {
+    useEffect(() => {
+        if(difficulty === 'easy') {
+            document.getElementById('easy-btn').classList.add('current-difficulty')
+        }
+        if(difficulty === 'medium') {
+            document.getElementById('medium-btn').classList.add('current-difficulty')
+        }
+        if(difficulty === 'hard') {
+            document.getElementById('hard-btn').classList.add('current-difficulty')
+        }
+    },[])
+    console.log(difficulty)
+
+    return (
+        <div>
+            {showButton ? (
+                <div className="difficulty-btns">
+                    <button
+                        id='easy-btn'
+                        className='difficulty-btn'
+                        value='easy' 
+                        onClick={(e) => setDifficulty(e.target.value)}
+                    >
+                        Easy
+                    </button>
+                    <button 
+                        id='medium-btn'
+                        className='difficulty-btn'
+                        value='medium'
+                        onClick={(e) => setDifficulty(e.target.value)}
+                    >
+                        Medium
+                    </button>
+                    <button 
+                        id='hard-btn'
+                        className='difficulty-btn'
+                        value='hard'
+                        onClick={(e) => setDifficulty(e.target.value)}
+                    >
+                        Hard
+                    </button>
+                </div>
+                ) :
+                ''
+            }
+        </div>
+    )
+}
+
   return (
     <div className='main'>
-      <h1>Memory Game</h1>
+      <h1>Memoria</h1>
       <PlayButton
         round={roundCount}
         time={timeLeft}
@@ -205,6 +256,7 @@ function App() {
         score={score}
         highScore={highScore}
       /> 
+      <DifficultyButtons />
        {showScore ? (<FinalScore score={scoreToShow} />) : ''}
       <Board handleCellClick={handleCellClick} />
     </div>
