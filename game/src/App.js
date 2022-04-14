@@ -20,230 +20,230 @@ function App() {
   const [scoreToShow, setScoreToShow] = useState(0)
 
   const startGame = useCallback(
-      () => {
-          const randomSelection = () => {
-              let selections = []
-              while (selections.length < roundCount + 5) {
-                  let number = randomNumber(1, 25)
-                  if (selections.includes(number) === false){
-                      selections.push(number)
-                  }
-              }
-              setRandomCells(selections)
+    () => {
+      const randomSelection = () => {
+        let selections = []
+        while (selections.length < roundCount + 5) {
+          let number = randomNumber(1, 25)
+          if (selections.includes(number) === false){
+            selections.push(number)
           }
-          setShowButton(false)
-          setShowScore(false)
-          setRoundCount(roundCount + 1)
-          setUserSelection([])
-          setTimeLeft(3)
-          randomSelection()
-          console.log(`Round: ${roundCount}`)
-      },
-      [roundCount]
+        }
+        setRandomCells(selections)
+      }
+      setShowButton(false)
+      setShowScore(false)
+      setRoundCount(roundCount + 1)
+      setUserSelection([])
+      setTimeLeft(3)
+      randomSelection()
+      console.log(`Round: ${roundCount}`)
+    },
+    [roundCount]
   )
 
   const randomNumber = (min, max) => {
-      return Math.floor(Math.random() * (max - min + 1) + min)
+    return Math.floor(Math.random() * (max - min + 1) + min)
   }
 
   const handleCellClick = (e) => {
-      let value = Number(e.target.value)
-      console.log(value)
-      let button = document.querySelector(`#cell-${value}`)
-      if(userSelection.includes(value) === false && userSelection.length < roundCount + 4) {
-          setUserSelection([...userSelection, value])
-          button.classList.add('selected')
-          button.classList.remove('hover')
-          button.parentElement.classList.add('breathing-animation')
-      } else {
-          let newArr = userSelection.filter(cell => cell !== value)
-          setUserSelection(newArr)
-          button.classList.remove('selected')
-          button.classList.add('hover')
-          button.parentElement.classList.remove('breathing-animation')
-      }
+    let value = Number(e.target.value)
+    console.log(value)
+    let button = document.querySelector(`#cell-${value}`)
+    if(userSelection.includes(value) === false && userSelection.length < roundCount + 4) {
+      setUserSelection([...userSelection, value])
+      button.classList.add('selected')
+      button.classList.remove('hover')
+      button.parentElement.classList.add('breathing-animation')
+    } else {
+      let newArr = userSelection.filter(cell => cell !== value)
+      setUserSelection(newArr)
+      button.classList.remove('selected')
+      button.classList.add('hover')
+      button.parentElement.classList.remove('breathing-animation')
+    }
   }
 
   //handle game start
   useEffect(() => {
-      const changeCells = () => {
-        for(let i = 0; i < randomCells.length; i++) {
-          let selectedCell = document.getElementById(`cell-${randomCells[i]}`)
-          selectedCell.classList.add('selected')
-          selectedCell.parentElement.classList.add('breathing-animation')
-        }
+    const changeCells = () => {
+      for(let i = 0; i < randomCells.length; i++) {
+        let selectedCell = document.getElementById(`cell-${randomCells[i]}`)
+        selectedCell.classList.add('selected')
+        selectedCell.parentElement.classList.add('breathing-animation')
       }
+    }
   
-      if(timeLeft === 0) {
-          console.log('time left is 0')
-          setTimeLeft(null)
-          setRoundTime(3)
-      }
+    if(timeLeft === 0) {
+      console.log('time left is 0')
+      setTimeLeft(null)
+      setRoundTime(3)
+    }
   
-      if(!timeLeft) {
-          changeCells()
-          return
-      }
+    if(!timeLeft) {
+      changeCells()
+      return
+    }
   
-      const intervalId = setInterval(() => {
-          setTimeLeft(timeLeft - 1)
-          console.log(randomCells)
-      }, 1000)
-      return () => clearInterval(intervalId)
+    const intervalId = setInterval(() => {
+      setTimeLeft(timeLeft - 1)
+      console.log(randomCells)
+    }, 1000)
+    return () => clearInterval(intervalId)
   }, [timeLeft, randomCells])
 
   //round timer
   useEffect(() => {
-      const unselectCells = () => {
-          for(let i = 0; i < randomCells.length; i++) {
-              let selectedCell = document.getElementById(`cell-${randomCells[i]}`)
-              selectedCell.classList.remove('selected')
-              selectedCell.parentElement.classList.remove('breathing-animation')
-          }
+    const unselectCells = () => {
+      for(let i = 0; i < randomCells.length; i++) {
+        let selectedCell = document.getElementById(`cell-${randomCells[i]}`)
+        selectedCell.classList.remove('selected')
+        selectedCell.parentElement.classList.remove('breathing-animation')
       }
+    }
 
-      if(roundTime === 0) {
-          console.log('round time left is 0')
-          setRoundTime(null)
-          let cells = document.getElementsByClassName('cell')
-          for(let i = 0; i < cells.length; i++) {
-              cells[i].disabled = false
-          }
-          setSelectionTime(5)
+    if(roundTime === 0) {
+      console.log('round time left is 0')
+      setRoundTime(null)
+      let cells = document.getElementsByClassName('cell')
+      for(let i = 0; i < cells.length; i++) {
+        cells[i].disabled = false
       }
+      setSelectionTime(5)
+    }
 
-      if(!roundTime) {
-          unselectCells()
-          return
-      }
+    if(!roundTime) {
+      unselectCells()
+      return
+    }
 
-      const intervalId = setInterval(() => {
-          setRoundTime(roundTime - 1)
-      }, 1000)
-      return () => clearInterval(intervalId)
+    const intervalId = setInterval(() => {
+      setRoundTime(roundTime - 1)
+    }, 1000)
+    return () => clearInterval(intervalId)
   }, [roundTime, randomCells])
 
   //selection timer
   useEffect(() => {
-      //calculate score
-      const calcScore = () => {
-          let matches = randomCells.filter(cell => userSelection.includes(cell))
-          setScore(score + (matches.length * 100))
-      }
+    //calculate score
+    const calcScore = () => {
+      let matches = randomCells.filter(cell => userSelection.includes(cell))
+      setScore(score + (matches.length * 100))
+    }
 
-      if(selectionTime === 0) {
-          console.log('selection time over')
-          setSelectionTime(null)
-          if(roundCount < 5) {
-              calcScore()
-              startGame()
-          } 
+    if(selectionTime === 0) {
+      console.log('selection time over')
+      setSelectionTime(null)
+      if(roundCount < 5) {
+        calcScore()
+        startGame()
+      } 
           
-          if(roundCount === 5) {
-            calcScore()
-            setGameOver(true)
-          }
-
-          let cells = document.getElementsByClassName('cell')
-          for(let i = 0; i < cells.length; i++) {
-              cells[i].disabled = true
-              cells[i].classList.remove('selected')
-              cells[i].classList.add('hover')
-              cells[i].parentElement.classList.remove('breathing-animation')
-          }
+      if(roundCount === 5) {
+        calcScore()
+        setGameOver(true)
       }
 
-      if(gameOver === true) {
-        //reset game
-        setHighScore(score > highScore ? score : highScore)
-        setScoreToShow(score)
-        setShowScore(true)
-        setScore(0)
-        setRoundCount(0)
-        setShowButton(true)
-        setGameOver(false)
+      let cells = document.getElementsByClassName('cell')
+      for(let i = 0; i < cells.length; i++) {
+        cells[i].disabled = true
+        cells[i].classList.remove('selected')
+        cells[i].classList.add('hover')
+        cells[i].parentElement.classList.remove('breathing-animation')
       }
+    }
 
-      if(!selectionTime) {
-          return
-      }
+    if(gameOver === true) {
+      //reset game
+      setHighScore(score > highScore ? score : highScore)
+      setScoreToShow(score)
+      setShowScore(true)
+      setScore(0)
+      setRoundCount(0)
+      setShowButton(true)
+      setGameOver(false)
+    }
 
-      const intervalId = setInterval(() => {
+    if(!selectionTime) {
+      return
+    }
+
+    const intervalId = setInterval(() => {
       setSelectionTime(selectionTime - 1)
-      console.log(`user selected: `, {userSelection})
-      }, 1000)
-      return () => clearInterval(intervalId)
+      console.log('user selected: ', {userSelection})
+    }, 1000)
+    return () => clearInterval(intervalId)
   }, [selectionTime, roundCount, startGame, userSelection, randomCells, score, gameOver, highScore])
 
   const PlayButton = () => {
-  return (
+    return (
       <div>
-          {showButton ? (
-              <button id='play-btn' className='play-btn' onClick={startGame}>
+        {showButton ? (
+          <button id='play-btn' className='play-btn' onClick={startGame}>
                   Play
-              </button>) : 
-                  <Display 
-                      round={roundCount}
-                      time={timeLeft}
-                      roundTime={roundTime}
-                      selectionTime={selectionTime} 
-                      score={score}
-                      highScore={highScore}
-                  />
-          }          
+          </button>) : 
+          <Display 
+            round={roundCount}
+            time={timeLeft}
+            roundTime={roundTime}
+            selectionTime={selectionTime} 
+            score={score}
+            highScore={highScore}
+          />
+        }          
       </div>
-  )
-}
+    )
+  }
 
-const DifficultyButtons = () => {
+  const DifficultyButtons = () => {
     useEffect(() => {
-        if(difficulty === 'easy') {
-            document.getElementById('easy-btn').classList.add('current-difficulty')
-        }
-        if(difficulty === 'medium') {
-            document.getElementById('medium-btn').classList.add('current-difficulty')
-        }
-        if(difficulty === 'hard') {
-            document.getElementById('hard-btn').classList.add('current-difficulty')
-        }
+      if(difficulty === 'easy') {
+        document.getElementById('easy-btn').classList.add('current-difficulty')
+      }
+      if(difficulty === 'medium') {
+        document.getElementById('medium-btn').classList.add('current-difficulty')
+      }
+      if(difficulty === 'hard') {
+        document.getElementById('hard-btn').classList.add('current-difficulty')
+      }
     },[])
     console.log(difficulty)
 
     return (
-        <div>
-            {showButton ? (
-                <div className="difficulty-btns">
-                    <button
-                        id='easy-btn'
-                        className='difficulty-btn'
-                        value='easy' 
-                        onClick={(e) => setDifficulty(e.target.value)}
-                    >
+      <div>
+        {showButton ? (
+          <div className="difficulty-btns">
+            <button
+              id='easy-btn'
+              className='difficulty-btn'
+              value='easy' 
+              onClick={(e) => setDifficulty(e.target.value)}
+            >
                         Easy
-                    </button>
-                    <button 
-                        id='medium-btn'
-                        className='difficulty-btn'
-                        value='medium'
-                        onClick={(e) => setDifficulty(e.target.value)}
-                    >
+            </button>
+            <button 
+              id='medium-btn'
+              className='difficulty-btn'
+              value='medium'
+              onClick={(e) => setDifficulty(e.target.value)}
+            >
                         Medium
-                    </button>
-                    <button 
-                        id='hard-btn'
-                        className='difficulty-btn'
-                        value='hard'
-                        onClick={(e) => setDifficulty(e.target.value)}
-                    >
+            </button>
+            <button 
+              id='hard-btn'
+              className='difficulty-btn'
+              value='hard'
+              onClick={(e) => setDifficulty(e.target.value)}
+            >
                         Hard
-                    </button>
-                </div>
-                ) :
-                ''
-            }
-        </div>
+            </button>
+          </div>
+        ) :
+          ''
+        }
+      </div>
     )
-}
+  }
 
   return (
     <div className='main'>
@@ -257,7 +257,7 @@ const DifficultyButtons = () => {
         highScore={highScore}
       /> 
       <DifficultyButtons />
-       {showScore ? (<FinalScore score={scoreToShow} />) : ''}
+      {showScore ? (<FinalScore score={scoreToShow} />) : ''}
       <Board handleCellClick={handleCellClick} />
     </div>
   )
