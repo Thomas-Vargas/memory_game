@@ -22,8 +22,18 @@ function App() {
   const startGame = useCallback(
     () => {
       const randomSelection = () => {
+        let difficultyNumber = 0
         let selections = []
-        while (selections.length < roundCount + 5) {
+
+        if(difficulty === 'easy') {
+          difficultyNumber = 3
+        } else if(difficulty === 'medium') {
+          difficultyNumber = 5
+        } else if (difficulty === 'hard') {
+          difficultyNumber = 7
+        }
+
+        while (selections.length < roundCount + difficultyNumber) {
           let number = randomNumber(1, 25)
           if (selections.includes(number) === false){
             selections.push(number)
@@ -31,6 +41,7 @@ function App() {
         }
         setRandomCells(selections)
       }
+
       setShowButton(false)
       setShowScore(false)
       setRoundCount(roundCount + 1)
@@ -39,7 +50,7 @@ function App() {
       randomSelection()
       console.log(`Round: ${roundCount}`)
     },
-    [roundCount]
+    [roundCount, difficulty]
   )
 
   const randomNumber = (min, max) => {
@@ -50,7 +61,7 @@ function App() {
     let value = Number(e.target.value)
     console.log(value)
     let button = document.querySelector(`#cell-${value}`)
-    if(userSelection.includes(value) === false && userSelection.length < roundCount + 4) {
+    if(userSelection.includes(value) === false && userSelection.length < randomCells.length) {
       setUserSelection([...userSelection, value])
       button.classList.add('selected')
       button.classList.remove('hover')
@@ -197,17 +208,16 @@ function App() {
 
   const DifficultyButtons = () => {
     useEffect(() => {
-      if(difficulty === 'easy') {
+      if(difficulty === 'easy' && showButton) {
         document.getElementById('easy-btn').classList.add('current-difficulty')
       }
-      if(difficulty === 'medium') {
+      if(difficulty === 'medium' && showButton) {
         document.getElementById('medium-btn').classList.add('current-difficulty')
       }
-      if(difficulty === 'hard') {
+      if(difficulty === 'hard' && showButton) {
         document.getElementById('hard-btn').classList.add('current-difficulty')
       }
-    },[])
-    console.log(difficulty)
+    },[difficulty])
 
     return (
       <div>

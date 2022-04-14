@@ -1,3 +1,5 @@
+import React from 'react'
+
 const Timer = ({ time, roundTime, selectionTime }) => {
   return (
     <div className="timer">

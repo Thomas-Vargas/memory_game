@@ -1,3 +1,5 @@
+import React from 'react'
+
 import Round from '../components/Round'
 import Timer from '../components/Timer'
 import Score from '../components/Score'

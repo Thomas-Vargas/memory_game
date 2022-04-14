@@ -2,14 +2,13 @@
 
 :root {
   --correct: #629741;
-  --white: #fefae0;
+  --white: #f1faee;
   --hover: #caf3f5;
-
+  --dark-gray: #202020;
   --light-gray: #ced4da;
   --light-blue: #a8dadc;
   --slate-blue: #457b9d;
   --dark-blue: #1d3557;
-  --white-sec: #f1faee;
   --red: #e63946;
 }
 
@@ -32,7 +31,7 @@
 
 h1 {
   color: var(--dark-blue);
-  padding: 20px 0px 20px 0px;
+  padding: 10px 0px 20px 0px;
 }
 
 .game-board {
@@ -51,7 +50,7 @@ h1 {
   width: 100%;
   height: 100%;
   border-radius: 4px;
-  border: 1px solid black;
+  border: 1px solid var(--dark-gray);
   cursor: pointer;
   background-color: var(--light-blue);
   color: var(--dark-blue)

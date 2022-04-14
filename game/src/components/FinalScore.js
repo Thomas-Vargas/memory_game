@@ -1,3 +1,5 @@
+import React from 'react'
+
 const FinalScore = ({ score }) => {
   return (
     <div className="scoreToShow">

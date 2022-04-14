@@ -1,3 +1,5 @@
+import React from 'react'
+
 const Round = ({ round }) => {
   return (
     <div className="display-cell">
