@@ -64,7 +64,7 @@ h1 {
   background-color: var(--hover);
 }
 
-.play-btn {
+.btn {
   width: 120px;
   height: 40px;
   border-radius: 5px;
@@ -76,7 +76,7 @@ h1 {
   background-color: var(--dark-blue);
 }
 
-.play-btn:hover {
+.btn:hover {
   color: var(--dark-blue);
   background-color: var(--light-blue);
   border: 1px solid var(--dark-blue);
@@ -87,18 +87,6 @@ h1 {
   width: 400px;
   display: flex;
   justify-content: space-between;
-}
-
-.difficulty-btn {
-  width: 120px;
-  height: 40px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  color: var(--light-blue);
-  font-weight: 500;
-  background-color: var(--dark-blue);
 }
 
 .current-difficulty {
@@ -240,6 +228,16 @@ h2 {
   .game-board {
     width: 300px;
     height: 300px;
+  }
+
+  .difficulty-btns {
+    width: 300px;
+    gap: 10px;
+  }
+
+  .difficulty-btn {
+    width: 100px;
+    height: 35px;
   }
 
   .display {

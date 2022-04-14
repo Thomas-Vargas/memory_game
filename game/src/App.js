@@ -8,12 +8,12 @@ function App() {
   const [showButton, setShowButton] = useState(true)
   const [gameOver, setGameOver] = useState(false)
   const [showScore, setShowScore] = useState(false)
-  const [difficulty, setDifficulty] = useState('medium')
   const [timeLeft, setTimeLeft] = useState(null)
   const [roundTime, setRoundTime] = useState(null)
   const [selectionTime, setSelectionTime] = useState(null)
   const [randomCells, setRandomCells] = useState([])
   const [userSelection, setUserSelection] = useState([])
+  const [difficulty, setDifficulty] = useState('medium')
   const [roundCount, setRoundCount] = useState(0)
   const [score, setScore] = useState(0)
   const [highScore, setHighScore] = useState(0)
@@ -48,7 +48,7 @@ function App() {
       setUserSelection([])
       setTimeLeft(3)
       randomSelection()
-      console.log(`Round: ${roundCount}`)
+      /* console.log(`Round: ${roundCount}`) */
     },
     [roundCount, difficulty]
   )
@@ -59,7 +59,6 @@ function App() {
 
   const handleCellClick = (e) => {
     let value = Number(e.target.value)
-    console.log(value)
     let button = document.querySelector(`#cell-${value}`)
     if(userSelection.includes(value) === false && userSelection.length < randomCells.length) {
       setUserSelection([...userSelection, value])
@@ -86,7 +85,7 @@ function App() {
     }
   
     if(timeLeft === 0) {
-      console.log('time left is 0')
+      /* console.log('time left is 0') */
       setTimeLeft(null)
       setRoundTime(3)
     }
@@ -98,7 +97,7 @@ function App() {
   
     const intervalId = setInterval(() => {
       setTimeLeft(timeLeft - 1)
-      console.log(randomCells)
+      /* console.log(randomCells) */
     }, 1000)
     return () => clearInterval(intervalId)
   }, [timeLeft, randomCells])
@@ -114,7 +113,7 @@ function App() {
     }
 
     if(roundTime === 0) {
-      console.log('round time left is 0')
+      /* console.log('round time left is 0') */
       setRoundTime(null)
       let cells = document.getElementsByClassName('cell')
       for(let i = 0; i < cells.length; i++) {
@@ -143,7 +142,7 @@ function App() {
     }
 
     if(selectionTime === 0) {
-      console.log('selection time over')
+      /* console.log('selection time over') */
       setSelectionTime(null)
       if(roundCount < 5) {
         calcScore()
@@ -181,7 +180,7 @@ function App() {
 
     const intervalId = setInterval(() => {
       setSelectionTime(selectionTime - 1)
-      console.log('user selected: ', {userSelection})
+      /* console.log('user selected: ', {userSelection}) */
     }, 1000)
     return () => clearInterval(intervalId)
   }, [selectionTime, roundCount, startGame, userSelection, randomCells, score, gameOver, highScore])
@@ -190,7 +189,7 @@ function App() {
     return (
       <div>
         {showButton ? (
-          <button id='play-btn' className='play-btn' onClick={startGame}>
+          <button id='play-btn' className='play-btn btn' onClick={startGame}>
                   Play
           </button>) : 
           <Display 
@@ -225,7 +224,7 @@ function App() {
           <div className="difficulty-btns">
             <button
               id='easy-btn'
-              className='difficulty-btn'
+              className='difficulty-btn btn'
               value='easy' 
               onClick={(e) => setDifficulty(e.target.value)}
             >
@@ -233,7 +232,7 @@ function App() {
             </button>
             <button 
               id='medium-btn'
-              className='difficulty-btn'
+              className='difficulty-btn btn'
               value='medium'
               onClick={(e) => setDifficulty(e.target.value)}
             >
@@ -241,7 +240,7 @@ function App() {
             </button>
             <button 
               id='hard-btn'
-              className='difficulty-btn'
+              className='difficulty-btn btn'
               value='hard'
               onClick={(e) => setDifficulty(e.target.value)}
             >
