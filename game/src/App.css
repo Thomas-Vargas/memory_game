@@ -34,6 +34,12 @@ h1 {
   padding: 10px 0px 20px 0px;
 }
 
+h2 {
+  background-color: var(--dark-blue);
+  color: var(--light-blue);
+  font-size: 16px;
+}
+
 .game-board {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -111,7 +117,7 @@ h1 {
   display: flex;
   flex-direction: row;
   padding: 0px 10px;
-  gap: 60px;
+  gap: 30px;
   width: 400px;
   height: 60px;
   background: var(--dark-blue);
@@ -138,12 +144,6 @@ h1 {
   background-color: inherit;
 }
 
-h2 {
-  background-color: var(--dark-blue);
-  color: var(--light-blue);
-  font-size: 18px;
-}
-
 .scoreToShow {
   padding-top: 10px;
   font-weight: 500;
@@ -166,6 +166,14 @@ h2 {
 
 .selected {
   background-color: var(--red);
+}
+
+.correct {
+  background-color: var(--correct);
+}
+
+.incorrect {
+  background-color: var(--white);
 }
 
 .footer {

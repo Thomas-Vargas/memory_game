@@ -13,10 +13,12 @@ function App() {
   const [selectionTime, setSelectionTime] = useState(null)
   const [randomCells, setRandomCells] = useState([])
   const [userSelection, setUserSelection] = useState([])
-  const [difficulty, setDifficulty] = useState('medium')
+  const [difficulty, setDifficulty] = useState('Medium')
   const [roundCount, setRoundCount] = useState(0)
   const [score, setScore] = useState(0)
-  const [highScore, setHighScore] = useState(0)
+  const [easyHighScore, setEasyHighScore] = useState(0)
+  const [medHighScore, setMedHighScore] = useState(0)
+  const [hardHighScore, setHardHighScore] = useState(0)
   const [scoreToShow, setScoreToShow] = useState(0)
 
   const startGame = useCallback(
@@ -25,11 +27,11 @@ function App() {
         let difficultyNumber = 0
         let selections = []
 
-        if(difficulty === 'easy') {
+        if(difficulty === 'Easy') {
           difficultyNumber = 3
-        } else if(difficulty === 'medium') {
+        } else if(difficulty === 'Medium') {
           difficultyNumber = 5
-        } else if (difficulty === 'hard') {
+        } else if (difficulty === 'Hard') {
           difficultyNumber = 7
         }
 
@@ -165,7 +167,14 @@ function App() {
 
     if(gameOver === true) {
       //reset game
-      setHighScore(score > highScore ? score : highScore)
+      if(difficulty === 'Easy') {
+        setEasyHighScore(score > easyHighScore ? score : easyHighScore)
+        console.log(easyHighScore)
+      } else if( difficulty === 'Medium') {
+        setMedHighScore(score > medHighScore ? score : medHighScore)
+      } else if(difficulty === 'Hard') {
+        setHardHighScore(score > hardHighScore ? score : hardHighScore)
+      }
       setScoreToShow(score)
       setShowScore(true)
       setScore(0)
@@ -183,7 +192,7 @@ function App() {
       /* console.log('user selected: ', {userSelection}) */
     }, 1000)
     return () => clearInterval(intervalId)
-  }, [selectionTime, roundCount, startGame, userSelection, randomCells, score, gameOver, highScore])
+  }, [selectionTime, roundCount, startGame, userSelection, randomCells, score, gameOver, easyHighScore, medHighScore, hardHighScore])
 
   const PlayButton = () => {
     return (
@@ -198,7 +207,10 @@ function App() {
             roundTime={roundTime}
             selectionTime={selectionTime} 
             score={score}
-            highScore={highScore}
+            easyHighScore={easyHighScore}
+            medHighScore={medHighScore}
+            hardHighScore={hardHighScore}
+            difficulty={difficulty}
           />
         }          
       </div>
@@ -207,13 +219,13 @@ function App() {
 
   const DifficultyButtons = () => {
     useEffect(() => {
-      if(difficulty === 'easy' && showButton) {
+      if(difficulty === 'Easy' && showButton) {
         document.getElementById('easy-btn').classList.add('current-difficulty')
       }
-      if(difficulty === 'medium' && showButton) {
+      if(difficulty === 'Medium' && showButton) {
         document.getElementById('medium-btn').classList.add('current-difficulty')
       }
-      if(difficulty === 'hard' && showButton) {
+      if(difficulty === 'Hard' && showButton) {
         document.getElementById('hard-btn').classList.add('current-difficulty')
       }
     },[difficulty])
@@ -225,7 +237,7 @@ function App() {
             <button
               id='easy-btn'
               className='difficulty-btn btn'
-              value='easy' 
+              value='Easy' 
               onClick={(e) => setDifficulty(e.target.value)}
             >
                         Easy
@@ -233,7 +245,7 @@ function App() {
             <button 
               id='medium-btn'
               className='difficulty-btn btn'
-              value='medium'
+              value='Medium'
               onClick={(e) => setDifficulty(e.target.value)}
             >
                         Medium
@@ -241,7 +253,7 @@ function App() {
             <button 
               id='hard-btn'
               className='difficulty-btn btn'
-              value='hard'
+              value='Hard'
               onClick={(e) => setDifficulty(e.target.value)}
             >
                         Hard
@@ -257,14 +269,7 @@ function App() {
   return (
     <div className='main'>
       <h1>Memoria</h1>
-      <PlayButton
-        round={roundCount}
-        time={timeLeft}
-        roundTime={roundTime}
-        selectionTime={selectionTime} 
-        score={score}
-        highScore={highScore}
-      /> 
+      <PlayButton /> 
       <DifficultyButtons />
       {showScore ? (<FinalScore score={scoreToShow} />) : ''}
       <Board handleCellClick={handleCellClick} />
