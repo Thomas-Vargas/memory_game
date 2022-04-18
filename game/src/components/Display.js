@@ -19,7 +19,7 @@ const Display = ({ round, time, roundTime, selectionTime, score, difficulty, eas
           hardHighScore={hardHighScore}
         />
         <div className="display-cell">
-          <h2>Difficulty:</h2>
+          <h2>Difficulty</h2>
           <h2>{difficulty}</h2>
         </div>
       </div>

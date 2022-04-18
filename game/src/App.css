@@ -10,6 +10,7 @@
   --slate-blue: #457b9d;
   --dark-blue: #1d3557;
   --red: #e63946;
+  --light-red: #ff5563;
 }
 
 *,
@@ -144,12 +145,71 @@ h2 {
   background-color: inherit;
 }
 
-.scoreToShow {
-  padding-top: 10px;
+.scoresToShow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  margin-top: 20px;
   font-weight: 500;
-  background-color: var(--light-gray);
+  background-color: var(--light-blue);
   color: var(--dark-blue);
+  font-size: 16px;
+  gap: 40px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--dark-blue)
+}
+
+.scoresToShow p{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: inherit;
+}
+
+.highScores {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: inherit;
+}
+
+.highScore-cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: inherit;
+  gap: 5px;
+}
+
+.highScore-container {
+  display: flex;
+  gap: 20px;
+}
+
+.highScores div {
+  display: flex;
+  background: inherit;
+}
+
+.label { 
   font-size: 22px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.currentScore {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: inherit;
+  gap: 5px;
 }
 
 .countdown {
@@ -166,6 +226,10 @@ h2 {
 
 .selected {
   background-color: var(--red);
+}
+
+.selected:hover {
+  background-color: var(--light-red);
 }
 
 .correct {

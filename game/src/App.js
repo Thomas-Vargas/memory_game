@@ -2,7 +2,7 @@ import './App.css'
 import React, { useState, useEffect, useCallback } from 'react'
 import Board from './components/Board'
 import Display  from './components/Display'
-import FinalScore from './components/FinalScore'
+import FinalScores from './components/FinalScores'
 
 function App() {
   const [showButton, setShowButton] = useState(true)
@@ -166,7 +166,7 @@ function App() {
     }
 
     if(gameOver === true) {
-      //reset game
+      //set high scores
       if(difficulty === 'Easy') {
         setEasyHighScore(score > easyHighScore ? score : easyHighScore)
         console.log(easyHighScore)
@@ -175,6 +175,7 @@ function App() {
       } else if(difficulty === 'Hard') {
         setHardHighScore(score > hardHighScore ? score : hardHighScore)
       }
+      //reset game
       setScoreToShow(score)
       setShowScore(true)
       setScore(0)
@@ -271,7 +272,15 @@ function App() {
       <h1>Memoria</h1>
       <PlayButton /> 
       <DifficultyButtons />
-      {showScore ? (<FinalScore score={scoreToShow} />) : ''}
+      {showScore ? (
+        <FinalScores 
+          score={scoreToShow} 
+          difficulty = {difficulty}
+          easyHighScore = {easyHighScore}
+          medHighScore = {medHighScore}
+          hardHighScore = {hardHighScore}
+        />   
+      ) : ''}
       <Board handleCellClick={handleCellClick} />
     </div>
   )
