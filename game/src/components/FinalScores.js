@@ -7,22 +7,22 @@ const FinalScores = ({ score, easyHighScore, medHighScore, hardHighScore }) => {
         <p className='label'>High Scores</p>
         <div className='highScore-container'>
           <div className='highScore-cell'>
-            <p>Easy:</p>
+            <p>Easy</p>
             <p>{easyHighScore}</p>
           </div>
           <div className='highScore-cell'>
-            <p>Medium:</p>
+            <p>Medium</p>
             <p>{medHighScore}</p>
           </div>
           <div className='highScore-cell'>
-            <p>Hard:</p>
+            <p>Hard</p>
             <p>{hardHighScore}</p>
           </div>
         </div>
       </div>
       <div className='currentScore'>
         <p className='label'> Current Score</p>
-        <p>Score:</p>
+        <p>Score</p>
         <p>{score}</p>
       </div>
     </div>

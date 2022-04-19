@@ -325,4 +325,18 @@ h2 {
   h2 {
     font-size: 16px;
   }
+
+  .scoresToShow {
+    width: 300px;
+    font-size: 14px;
+    gap: 10px;
+  }
+
+  .label {
+    font-size: 18px;
+  }
+
+  .highScore-container {
+    gap: 10px;
+  }
 }
