@@ -193,7 +193,7 @@ function App() {
       /* console.log('user selected: ', {userSelection}) */
     }, 1000)
     return () => clearInterval(intervalId)
-  }, [selectionTime, roundCount, startGame, userSelection, randomCells, score, gameOver, easyHighScore, medHighScore, hardHighScore])
+  }, [selectionTime, roundCount, startGame, randomCells, score, gameOver, easyHighScore, medHighScore, hardHighScore])
 
   const PlayButton = () => {
     return (
